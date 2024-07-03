@@ -32,7 +32,7 @@ public class TimerUI {
 
         buildUI();
 
-        this.timer = new Timer(buttonSwitch, buttonReset, timeStart, timeSum, timeState, timerTime);
+        this.timer = new Timer(timeStart, timeSum, timeState);
     }
 
     private void buildUI(){
@@ -83,8 +83,26 @@ public class TimerUI {
         });
     }
 
-    public void updateUI(){
-        timer.UpdateTime();
+    public boolean updateUI(){
+        if (timer.getState() != States.Running) {
+            if(timer.getState() == States.Reseted) {
+                timerTime.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        timerTime.setText("");
+                    }
+                });
+            }
+            return false;
+        }
+
+        timerTime.post(new Runnable() {
+            @Override
+            public void run() {
+                timerTime.setText(timer.getTime());
+            }
+        });
+        return true;
     }
 
     public int dp2Px(int dp) {

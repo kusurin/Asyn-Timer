@@ -1,40 +1,15 @@
 package kusurin.icu.asyntimer;
 
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
 public class Timer  {
     private long TimeStart = 0;
     private long TimeSum = 0;
     private States timeState = States.Reseted;
 
-    private TextView TimerTime = null;
-    private ImageButton ButtonSwitch = null;
-    private ImageButton ButtonReset = null;
-
-    //记得最后把Timer和元素解耦，让TimerUI耦合
-    Timer(ImageButton ButtonSwitch, ImageButton ButtonReset, long timeStart, long timeSum, States timeState, TextView TimerTime) {
-        this.ButtonSwitch = ButtonSwitch;
-        this.ButtonReset = ButtonReset;
-        this.TimerTime = TimerTime;
+    //把Timer和元素解耦，让TimerUI耦合
+    Timer(long timeStart, long timeSum, States timeState) {
         this.TimeStart = timeStart;
         this.TimeSum = timeSum;
         this.timeState = timeState;
-
-        ButtonSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchState();
-            }
-        });
-
-        ButtonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reset();
-            }
-        });
     }
 
     public String switchState() {
@@ -61,19 +36,7 @@ public class Timer  {
         return "Reseted";
     }
 
-    public boolean UpdateTime() {
-        if (timeState != States.Running) {
-            if(timeState == States.Reseted) {
-                TimerTime.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        TimerTime.setText("");
-                    }
-                });
-            }
-            return false;
-        }
-
+    public String getTime() {
         long TimeEnd = System.currentTimeMillis();
         long TimeDiff = TimeEnd - TimeStart + TimeSum;
 
@@ -90,16 +53,7 @@ public class Timer  {
         String TimeMinuteString = String.format("%02d", TimeMinute);
         String TimeSecondString = String.format("%02d", TimeSecond);
 
-        final String time = TimeHourString + TimeMinuteString + ":" + TimeSecondString;
-
-        TimerTime.post(new Runnable() {
-            @Override
-            public void run() {
-                TimerTime.setText(time);
-            }
-        });
-
-        return true;
+        return TimeHourString + TimeMinuteString + ":" + TimeSecondString;
     }
 
     public States getState() {
