@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bar_dark"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Zi-O"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:titleTextColor="@color/font_color_dark" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:scrollbarThumbVertical="@color/white">
+
+        <LinearLayout
+            android:id="@+id/TimerList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:id="@+id/TimerUnit1"
+                style="@style/TimerUnit">
+
+                <TextView
+                    android:id="@+id/TimerTime1"
+                    style="@style/TimerTime" />
+
+                <EditText
+                    android:id="@+id/TimerName1"
+                    style="@style/TimerName" />
+
+                <ImageButton
+                    android:id="@+id/TimerSwitch1"
+                    style="@style/TimerSwitch" />
+
+                <ImageButton
+                    android:id="@+id/TimerReset1"
+                    style="@style/TimerReset"
+
+                    android:layout_toStartOf="@+id/TimerSwitch1" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
