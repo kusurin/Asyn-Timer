@@ -49,6 +49,10 @@
 
         <item name="android:background">@color/background_dark</item>
 
+        <item name="android:editable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+
         <item name="android:inputType">text</item>
         <item name="android:hint">"ID"</item>
         <item name="android:lines">1</item>

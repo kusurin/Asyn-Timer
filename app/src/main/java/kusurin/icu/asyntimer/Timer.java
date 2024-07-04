@@ -5,7 +5,6 @@ public class Timer  {
     private long TimeSum = 0;
     private States timeState = States.Reseted;
 
-    //把Timer和元素解耦，让TimerUI耦合
     Timer(long timeStart, long timeSum, States timeState) {
         this.TimeStart = timeStart;
         this.TimeSum = timeSum;
@@ -37,8 +36,16 @@ public class Timer  {
     }
 
     public String getTime() {
+        if(TimeStart == 0){
+            return "";
+        }
+
         long TimeEnd = System.currentTimeMillis();
         long TimeDiff = TimeEnd - TimeStart + TimeSum;
+
+        if(timeState == States.Stopped){
+            TimeDiff = TimeSum;
+        }
 
         long TimeHour = 0;
         long TimeMinute = TimeDiff / 60000;
@@ -58,5 +65,13 @@ public class Timer  {
 
     public States getState() {
         return timeState;
+    }
+
+    public long getTimeSum() {
+        return TimeSum;
+    }
+
+    public long getTimeStart() {
+        return TimeStart;
     }
 }

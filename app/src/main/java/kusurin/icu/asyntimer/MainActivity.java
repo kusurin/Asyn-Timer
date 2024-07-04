@@ -1,5 +1,7 @@
 package kusurin.icu.asyntimer;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.widget.LinearLayout;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar Toolbar = null;
@@ -25,8 +33,15 @@ public class MainActivity extends AppCompatActivity {
 
         TimerList = findViewById(R.id.TimerList);
 
-        TimerUI timerUI = new TimerUI(this, 0, 0, States.Reseted, TimerList);
-        TimerUI timerUI1 = new TimerUI(this, 0, 0, States.Reseted, TimerList);
+        Vector<TimerUIState> timerCaches = loadTimerUICaches(this);
+
+        Vector<TimerUI> timerUIs = new Vector<>();
+
+        for (TimerUIState timerCache : timerCaches) {
+            timerUIs.add(new TimerUI(this, timerCache.TimeStart, timerCache.TimeSum, timerCache.timeState, timerCache.TimerNameText, timerCache.TimerID, TimerList));
+        }
+
+        final boolean[] NeedUpdateCache = {false};
 
         new Thread(new Runnable() {
             @Override
@@ -40,13 +55,68 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            timerUI.updateUI();
-                            timerUI1.updateUI();
+                            NeedUpdateCache[0] = false;
+                            for (TimerUI timerUI : timerUIs) {
+                                timerUI.updateUI();
+                                if(timerUI.WillChange()){
+                                    NeedUpdateCache[0] = true;
+                                }
+                                timerUI.beenChanged();
+                            }
+                            if (NeedUpdateCache[0]) {
+                                for (int i = 0; i < timerUIs.size(); i++) {
+                                    timerCaches.set(i, new TimerUIState(timerUIs.get(i).getTimeStart(), timerUIs.get(i).getTimeSum(), timerUIs.get(i).getState(), timerUIs.get(i).getTimerNameText(), timerUIs.get(i).getTimerID()));
+
+                                    if(timerUIs.get(i).isDeleted()){
+                                        timerUIs.get(i).delete();
+                                        timerUIs.remove(i);
+                                        timerCaches.remove(i);
+                                    }
+                                }
+
+                                saveTimerUICaches(timerCaches, MainActivity.this);
+                                NeedUpdateCache[0] = false;
+                            }
+                            //假如没有TimerUI，创建一个
+                            if (timerUIs.size() == 0) {
+                                timerUIs.add(new TimerUI(MainActivity.this, 0, 0, States.Reseted, "", 0, TimerList));
+                                timerCaches.add(new TimerUIState(0, 0, States.Reseted, "", 0));
+                            }
+                            //假如最后一个timerUI不在活动状态，创建一个
+                            if (timerUIs.lastElement().getState() != States.Reseted || !timerUIs.lastElement().getTimerNameText().equals("")) {
+                                timerUIs.add(new TimerUI(MainActivity.this, 0, 0, States.Reseted, "", timerUIs.size(), TimerList));
+                                timerCaches.add(new TimerUIState(0, 0, States.Reseted, "", timerUIs.size()));
+                            }
                         }
                     });
                 }
             }
         }).start();
+    }
+
+
+    public void saveTimerUICaches(Vector<TimerUIState> timerCaches, Context context) {
+        Gson gson = new Gson();
+        String json = gson.toJson(timerCaches);
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("TimerCachePrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("TimerCacheList", json);
+        editor.apply();
+    }
+
+    public Vector<TimerUIState> loadTimerUICaches(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("TimerCachePrefs", Context.MODE_PRIVATE);
+        String json = sharedPreferences.getString("TimerCacheList", null);
+        Type type = new TypeToken<Vector<TimerUIState>>() {}.getType();
+        Gson gson = new Gson();
+        Vector<TimerUIState> timerCaches = gson.fromJson(json, type);
+
+        if (timerCaches == null) {
+            timerCaches = new Vector<>();
+        }
+
+        return timerCaches;
     }
 }
 

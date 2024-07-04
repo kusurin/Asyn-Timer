@@ -39,29 +39,6 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <RelativeLayout
-                android:id="@+id/TimerUnit1"
-                style="@style/TimerUnit">
-
-                <TextView
-                    android:id="@+id/TimerTime1"
-                    style="@style/TimerTime" />
-
-                <EditText
-                    android:id="@+id/TimerName1"
-                    style="@style/TimerName" />
-
-                <ImageButton
-                    android:id="@+id/TimerSwitch1"
-                    style="@style/TimerSwitch" />
-
-                <ImageButton
-                    android:id="@+id/TimerReset1"
-                    style="@style/TimerReset"
-
-                    android:layout_toStartOf="@+id/TimerSwitch1" />
-            </RelativeLayout>
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
