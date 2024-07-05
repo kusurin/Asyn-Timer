@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -137,6 +139,17 @@ public class TimerUI {
                 IsDeleted = true;
             }
         });
+
+        //timerName内容改变时也willchange
+        timerName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                WillChange = true;
+            }
+            //ybb
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void afterTextChanged(Editable editable) {}
+        });
     }
 
     public boolean updateUI(){
@@ -175,8 +188,8 @@ public class TimerUI {
     public void delete() {
         final int originalHeight = TimerUnit.getHeight();
 
-        ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 0).setDuration(200);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        ValueAnimator UIAnimator = ValueAnimator.ofInt(originalHeight, 0).setDuration(200);
+        UIAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 ViewGroup.LayoutParams params = TimerUnit.getLayoutParams();
@@ -185,14 +198,17 @@ public class TimerUI {
             }
         });
 
-        animator.addListener(new AnimatorListenerAdapter() {
+        UIAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 container.removeView(TimerUnit);
             }
         });
 
-        animator.start();
+        ObjectAnimator.ofFloat(buttonSwitch, "alpha", 1f, 0f).setDuration(100).start();
+        ObjectAnimator.ofFloat(buttonReset, "alpha", 1f, 0f).setDuration(100).start();
+
+        UIAnimator.start();
     }
 
     public void beenChanged() {
