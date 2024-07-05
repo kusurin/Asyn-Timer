@@ -63,6 +63,13 @@ public class Timer  {
         return TimeHourString + TimeMinuteString + ":" + TimeSecondString;
     }
 
+    public String getTimeSub() {
+        if(timeState == States.Stopped) {
+            return String.valueOf((TimeSum)%1000/100);
+        }
+        return String.valueOf((System.currentTimeMillis() - TimeStart + TimeSum)%1000/100);
+    }
+
     public States getState() {
         return timeState;
     }

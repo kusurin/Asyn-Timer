@@ -13,6 +13,10 @@
     <dimen name="fontSize_timerTime">50dp</dimen>
     <dimen name="paddingLeft_timerTime">10dp</dimen>
 
+    <dimen name="fontSize_timerTimeSub">30dp</dimen>
+    <dimen name="paddingLeft_timerTimeSub">3dp</dimen>
+    <dimen name="paddingBottom_timerTimeSub">5dp</dimen>
+
     <!-- =-@dimen/paddingTop_timerUnit -->
     <dimen name="marginTop_timerName">-25dp</dimen>
     <dimen name="marginLeft_timerName">-5dp</dimen>

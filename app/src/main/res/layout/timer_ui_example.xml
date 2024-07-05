@@ -22,6 +22,14 @@
                 android:id="@+id/TimerTime1"
                 style="@style/TimerTime" />
 
+            <TextView
+                android:id="@+id/TimerTimeSub1"
+                style="@style/TimerTimeSub"
+
+                android:layout_toEndOf="@+id/TimerTime1"
+                android:layout_alignBottom="@+id/TimerTime1"
+                />
+
             <EditText
                 android:id="@+id/TimerName1"
                 style="@style/TimerName" />

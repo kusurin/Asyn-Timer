@@ -26,6 +26,7 @@ public class TimerUI {
     private ImageButton buttonSwitch = null;
     private ImageButton buttonReset = null;
     private TextView timerTime = null;
+    private TextView timerTimeSub = null; //加个毫秒位
     private EditText timerName = null;
 
     private States lastState = null;
@@ -42,6 +43,7 @@ public class TimerUI {
         this.buttonSwitch = new ImageButton(context,null,0,R.style.TimerSwitch);
         this.buttonReset = new ImageButton(context,null,0,R.style.TimerReset);
         this.timerTime = new TextView(context,null,0,R.style.TimerTime);
+        this.timerTimeSub = new TextView(context,null,0,R.style.TimerTimeSub);
         this.timerName = new EditText(context,null,0,R.style.TimerName);
 
         timerName.setText(TimerNameText);
@@ -63,6 +65,7 @@ public class TimerUI {
     private void buildUI(){
         //布局
         TimerUnit.addView(timerTime);
+        TimerUnit.addView(timerTimeSub);
         TimerUnit.addView(timerName);
         TimerUnit.addView(buttonSwitch);
         TimerUnit.addView(buttonReset);
@@ -90,8 +93,14 @@ public class TimerUI {
         buttonResetParams.addRule(RelativeLayout.CENTER_VERTICAL,RelativeLayout.TRUE);
         buttonResetParams.setMargins(0,0,context.getResources().getDimensionPixelSize(R.dimen.marginRight_timerReset),0);
 
+        timerTime.setId(View.generateViewId());
+        RelativeLayout.LayoutParams TimerTimeSubParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        TimerTimeSubParams.addRule(RelativeLayout.RIGHT_OF, timerTime.getId());
+        TimerTimeSubParams.addRule(RelativeLayout.ALIGN_BOTTOM, timerTime.getId());
+
         TimerUnit.setLayoutParams(TimerUnitParams);
         timerTime.setLayoutParams(TimerTimeParams);
+        timerTimeSub.setLayoutParams(TimerTimeSubParams);
         timerName.setLayoutParams(TimerNameParams);
         buttonSwitch.setLayoutParams(ButtonSwitchParams);
         buttonReset.setLayoutParams(buttonResetParams);
@@ -176,7 +185,13 @@ public class TimerUI {
         timerTime.post(new Runnable() {
             @Override
             public void run() {
-                timerTime.setText(timer.getTime());
+                String TimerTimeString = timer.getTime();
+                timerTime.setText(TimerTimeString);
+                if(TimerTimeString.equals("")){
+                    timerTimeSub.setText("");
+                    return;
+                }
+                timerTimeSub.setText(timer.getTimeSub());
             }
         });
 
