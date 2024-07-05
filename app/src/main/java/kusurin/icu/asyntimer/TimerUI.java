@@ -120,21 +120,21 @@ public class TimerUI {
     }
 
     public boolean updateUI(){
-        if (timer.getState() != States.Running) {
+        if (timer.getState() == States.Running) {
+            buttonSwitch.setBackground(context.getDrawable(R.drawable.button_pause));
+        }
+        else {
             buttonSwitch.setBackground(context.getDrawable(R.drawable.button_start));
-
-            if(timer.getState() == States.Reseted) {
-                timerTime.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        timerTime.setText("");
-                    }
-                });
-            }
-            return false;
         }
 
-        buttonSwitch.setBackground(context.getDrawable(R.drawable.button_pause));
+        if(timer.getState() == States.Reseted) {
+            timerTime.post(new Runnable() {
+                @Override
+                public void run() {
+                        timerTime.setText("");
+                    }
+            });
+        }
 
         timerTime.post(new Runnable() {
             @Override

@@ -36,7 +36,7 @@ public class Timer  {
     }
 
     public String getTime() {
-        if(TimeStart == 0){
+        if(timeState == States.Reseted){
             return "";
         }
 
