@@ -1,7 +1,12 @@
 package kusurin.icu.asyntimer;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -20,6 +25,8 @@ public class TimerUI {
     private ImageButton buttonReset = null;
     private TextView timerTime = null;
     private EditText timerName = null;
+
+    private States lastState = null;
 
     private boolean WillChange = false;
 
@@ -88,8 +95,21 @@ public class TimerUI {
         buttonReset.setLayoutParams(buttonResetParams);
 
         buttonSwitch.setBackground(context.getDrawable(R.drawable.button_start));
+        buttonReset.setBackground(context.getDrawable(R.drawable.button_delete));
+
+        ObjectAnimator Animator = ObjectAnimator.ofFloat(TimerUnit, "alpha", 0f, 1f).setDuration(300);
+        Animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                updateUI();
+            }
+        });
+        TimerUnit.setAlpha(0f);
 
         container.addView(TimerUnit);
+
+        Animator.start();
+
 
         //绑定
         buttonSwitch.setOnClickListener(new View.OnClickListener() {
@@ -120,20 +140,24 @@ public class TimerUI {
     }
 
     public boolean updateUI(){
-        if (timer.getState() == States.Running) {
-            buttonSwitch.setBackground(context.getDrawable(R.drawable.button_pause));
-        }
-        else {
-            buttonSwitch.setBackground(context.getDrawable(R.drawable.button_start));
-        }
-
-        if(timer.getState() == States.Reseted) {
-            timerTime.post(new Runnable() {
-                @Override
-                public void run() {
-                        timerTime.setText("");
+        if (lastState != timer.getState()) {
+            switch (timer.getState()) {
+                case Running:
+                    changeButton(buttonSwitch, R.drawable.button_pause);
+                    if(buttonReset.getBackground().getConstantState() != context.getDrawable(R.drawable.button_reset).getConstantState()){
+                        changeButton(buttonReset, R.drawable.button_reset);
                     }
-            });
+                    break;
+                case Stopped:
+                    changeButton(buttonSwitch, R.drawable.button_start);
+                    break;
+                case Reseted:
+                    changeButton(buttonReset, R.drawable.button_delete);
+                    if(buttonSwitch.getBackground().getConstantState() != context.getDrawable(R.drawable.button_start).getConstantState()){
+                        changeButton(buttonSwitch, R.drawable.button_start);
+                    }
+                    break;
+            }
         }
 
         timerTime.post(new Runnable() {
@@ -142,11 +166,33 @@ public class TimerUI {
                 timerTime.setText(timer.getTime());
             }
         });
+
+        lastState = timer.getState();
+
         return true;
     }
 
     public void delete() {
-        container.removeView(TimerUnit);
+        final int originalHeight = TimerUnit.getHeight();
+
+        ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 0).setDuration(200);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                ViewGroup.LayoutParams params = TimerUnit.getLayoutParams();
+                params.height = (Integer) animation.getAnimatedValue();
+                TimerUnit.setLayoutParams(params);
+            }
+        });
+
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                container.removeView(TimerUnit);
+            }
+        });
+
+        animator.start();
     }
 
     public void beenChanged() {
@@ -180,6 +226,23 @@ public class TimerUI {
 
     public boolean isDeleted() {
         return IsDeleted;
+    }
+
+    private void changeButton(ImageButton button, int drawable) {
+        //防止buttonReset闪动
+        if(lastState == null){
+            button.setBackground(context.getDrawable(drawable));
+            return;
+        }
+        ObjectAnimator Animator = ObjectAnimator.ofFloat(button, "alpha", 1f, 0f).setDuration(80);
+        Animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                button.setBackground(context.getDrawable(drawable));
+                ObjectAnimator.ofFloat(button, "alpha", 0f, 1f).setDuration(80).start();
+            }
+        });
+        Animator.start();
     }
 }
 

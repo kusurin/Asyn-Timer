@@ -1,0 +1,12 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="100dp" android:viewportHeight="100" android:viewportWidth="100" android:width="100dp">
+
+    <!--  我错了以后一定按24做...  -->
+    <path android:fillColor="#f00" android:pathData="M 32.5 70.4167 c 0 3.2083 2.625 5.8333 5.8333 5.8333 h 23.3333 c 3.2083 0 5.8333 -2.625 5.8333 -5.8333 L 67.5 35.4167 L 32.5 35.4167 v 35 z M 39.675 49.65 l 4.1125 -4.1125 L 50 51.7208 l 6.1833 -6.1833 l 4.1125 4.1125 L 54.1125 55.8333 l 6.1833 6.1833 l -4.1125 4.1125 L 50 59.9458 l -6.1833 6.1833 l -4.1125 -4.1125 L 45.8875 55.8333 l -6.2125 -6.1833 z M 60.2083 26.6667 l -2.9167 -2.9167 h -14.5833 l -2.9167 2.9167 L 29.5833 26.6667 v 5.8333 h 40.8333 L 70.4167 26.6667 z"/>
+
+    <path
+        android:fillColor="@color/transparent" android:pathData="M50,50m-45,0a45,45 0 1,0 90,0a45,45 0 1,0 -90,0"
+        android:strokeWidth="10"
+        android:strokeColor="#f00"
+        android:strokeLineJoin="round"
+        />
+</vector>
