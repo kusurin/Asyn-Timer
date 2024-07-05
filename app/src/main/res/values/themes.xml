@@ -9,18 +9,22 @@
 
     <style name="ToolbarTitle" parent="Base.Theme.AsynTimer">
         <item name="android:textColor">@color/font_color_dark</item>
-        <item name="android:textSize">40dp</item>
+        <item name="android:textSize">@dimen/fontSize_toolbar</item>
     </style>
 
     <style name="TimerUnit" parent="Base.Theme.AsynTimer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:paddingTop">@dimen/paddingTop_timerUnit</item>
+        <item name="android:paddingRight">@dimen/paddingRight_timerUnit</item>
+        <item name="android:paddingBottom">@dimen/paddingBottom_timerUnit</item>
+        <item name="android:paddingLeft">@dimen/paddingLeft_timerUnit</item>
+        <item name="android:layout_marginTop">@dimen/marginTop_timerUnit</item>
+        <item name="android:layout_marginRight">@dimen/marginRight_timerUnit</item>
+        <item name="android:layout_marginBottom">@dimen/marginBottom_timerUnit</item>
+        <item name="android:layout_marginLeft">@dimen/marginLeft_timerUnit</item>
 
+        <item name="android:clipChildren">false</item>
         <item name="android:clipToPadding">false</item>
 
         <item name="android:background">@drawable/inputborder</item>
@@ -30,10 +34,10 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingLeft">@dimen/paddingLeft_timerTime</item>
 
         <item name="android:hint">00:00</item>
-        <item name="android:textSize">50dp</item>
+        <item name="android:textSize">@dimen/fontSize_timerTime</item>
         <item name="android:textColor">@color/font_color_dark</item>
         <item name="android:textColorHint">@color/hint_color_dark</item>
     </style>
@@ -42,10 +46,10 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentTop">true</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:layout_marginTop">-30dp</item>
-        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:paddingLeft">@dimen/paddingLeftRight_timerName</item>
+        <item name="android:paddingRight">@dimen/paddingLeftRight_timerName</item>
+        <item name="android:layout_marginTop">@dimen/marginTop_timerName</item>
+        <item name="android:layout_marginLeft">@dimen/marginLeft_timerName</item>
 
         <item name="android:background">@color/background_dark</item>
 
@@ -56,27 +60,26 @@
         <item name="android:inputType">text</item>
         <item name="android:hint">"ID"</item>
         <item name="android:lines">1</item>
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">@dimen/fontSize_timerName</item>
         <item name="android:textColor">@color/font_color_dark</item>
         <item name="android:textColorHint">@color/hint_color_dark</item>
     </style>
 
     <style name="TimerSwitch" parent="Base.Theme.AsynTimer">
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">@dimen/size_timerButton</item>
+        <item name="android:layout_height">@dimen/size_timerButton</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginRight">@dimen/marginRight_timerSwitch</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:translationY">5dp</item>
-        <item name="android:background">#f00</item>
+        <item name="android:translationY">@dimen/translateY_timerButton</item>
     </style>
 
     <style name="TimerReset" parent="Base.Theme.AsynTimer">
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">@dimen/size_timerButton</item>
+        <item name="android:layout_height">@dimen/size_timerButton</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:translationY">5dp</item>
-        <item name="android:layout_marginRight">20dp</item>
-        <item name="android:background">#f00</item>
+        <item name="android:layout_marginRight">@dimen/marginRight_timerReset</item>
+        <item name="android:translationY">@dimen/translateY_timerButton</item>
+        <item name="android:background">@drawable/button_reset</item>
     </style>
 </resources>

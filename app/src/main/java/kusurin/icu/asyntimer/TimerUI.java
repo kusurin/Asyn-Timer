@@ -60,26 +60,26 @@ public class TimerUI {
 
         //一些静态的LayoutParams
         LinearLayout.LayoutParams TimerUnitParams = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        TimerUnitParams.setMargins(dp2Px(10), dp2Px(10), dp2Px(10), dp2Px(10));
+        TimerUnitParams.setMargins(context.getResources().getDimensionPixelSize(R.dimen.marginLeft_timerUnit),context.getResources().getDimensionPixelSize(R.dimen.marginTop_timerUnit),context.getResources().getDimensionPixelSize(R.dimen.marginRight_timerUnit),context.getResources().getDimensionPixelSize(R.dimen.marginBottom_timerUnit));
 
         RelativeLayout.LayoutParams TimerTimeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         TimerTimeParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT,RelativeLayout.TRUE);
 
         RelativeLayout.LayoutParams TimerNameParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         TimerNameParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,RelativeLayout.TRUE);
-        TimerNameParams.setMargins(dp2Px(10),dp2Px(-30),0,0);
+        TimerNameParams.setMargins(context.getResources().getDimensionPixelSize(R.dimen.marginLeft_timerName),context.getResources().getDimensionPixelSize(R.dimen.marginTop_timerName),0,0);
 
-        RelativeLayout.LayoutParams ButtonSwitchParams = new RelativeLayout.LayoutParams(dp2Px(50), dp2Px(50));
+        RelativeLayout.LayoutParams ButtonSwitchParams = new RelativeLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.size_timerButton), context.getResources().getDimensionPixelSize(R.dimen.size_timerButton));
         ButtonSwitchParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
         ButtonSwitchParams.addRule(RelativeLayout.CENTER_VERTICAL,RelativeLayout.TRUE);
-        ButtonSwitchParams.setMargins(0,0,dp2Px(10),0);
+        ButtonSwitchParams.setMargins(0,0,context.getResources().getDimensionPixelSize(R.dimen.marginRight_timerSwitch),0);
 
         //动态的
         buttonSwitch.setId(View.generateViewId());
-        RelativeLayout.LayoutParams buttonResetParams = new RelativeLayout.LayoutParams(dp2Px(50), dp2Px(50));
+        RelativeLayout.LayoutParams buttonResetParams = new RelativeLayout.LayoutParams(context.getResources().getDimensionPixelSize(R.dimen.size_timerButton), context.getResources().getDimensionPixelSize(R.dimen.size_timerButton));
         buttonResetParams.addRule(RelativeLayout.LEFT_OF, buttonSwitch.getId());
         buttonResetParams.addRule(RelativeLayout.CENTER_VERTICAL,RelativeLayout.TRUE);
-        buttonResetParams.setMargins(0,0,dp2Px(20),0);
+        buttonResetParams.setMargins(0,0,context.getResources().getDimensionPixelSize(R.dimen.marginRight_timerReset),0);
 
         TimerUnit.setLayoutParams(TimerUnitParams);
         timerTime.setLayoutParams(TimerTimeParams);
@@ -175,11 +175,11 @@ public class TimerUI {
     public boolean isDeleted() {
         return IsDeleted;
     }
-
-    public int dp2Px(int dp) {
-        if(dp > 0)
-            return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
-        return (int) (dp * context.getResources().getDisplayMetrics().density - 0.5f);
-    }
+//不需要你了
+//    public int dp2Px(int dp) {
+//        if(dp > 0)
+//            return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
+//        return (int) (dp * context.getResources().getDisplayMetrics().density - 0.5f);
+//    }
 }
 
