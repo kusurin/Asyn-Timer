@@ -7,8 +7,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 
 import android.widget.LinearLayout;
 
