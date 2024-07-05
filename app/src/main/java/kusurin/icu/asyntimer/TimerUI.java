@@ -109,7 +109,7 @@ public class TimerUI {
                     return;
                 }
                 //再点一下重置名字
-                if(timer.getState() == States.Reseted && !getTimerNameText().equals("")) {
+                if(!getTimerNameText().equals("")) {
                     timerName.setText("");
                     return;
                 }
