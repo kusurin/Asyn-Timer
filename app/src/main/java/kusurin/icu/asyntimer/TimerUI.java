@@ -87,6 +87,8 @@ public class TimerUI {
         buttonSwitch.setLayoutParams(ButtonSwitchParams);
         buttonReset.setLayoutParams(buttonResetParams);
 
+        buttonSwitch.setBackground(context.getDrawable(R.drawable.button_start));
+
         container.addView(TimerUnit);
 
         //绑定
@@ -119,6 +121,8 @@ public class TimerUI {
 
     public boolean updateUI(){
         if (timer.getState() != States.Running) {
+            buttonSwitch.setBackground(context.getDrawable(R.drawable.button_start));
+
             if(timer.getState() == States.Reseted) {
                 timerTime.post(new Runnable() {
                     @Override
@@ -129,6 +133,8 @@ public class TimerUI {
             }
             return false;
         }
+
+        buttonSwitch.setBackground(context.getDrawable(R.drawable.button_pause));
 
         timerTime.post(new Runnable() {
             @Override
@@ -175,11 +181,5 @@ public class TimerUI {
     public boolean isDeleted() {
         return IsDeleted;
     }
-//不需要你了
-//    public int dp2Px(int dp) {
-//        if(dp > 0)
-//            return (int) (dp * context.getResources().getDisplayMetrics().density + 0.5f);
-//        return (int) (dp * context.getResources().getDisplayMetrics().density - 0.5f);
-//    }
 }
 

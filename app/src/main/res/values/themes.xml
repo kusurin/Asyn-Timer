@@ -51,7 +51,7 @@
         <item name="android:layout_marginTop">@dimen/marginTop_timerName</item>
         <item name="android:layout_marginLeft">@dimen/marginLeft_timerName</item>
 
-        <item name="android:background">@color/background_dark</item>
+        <item name="android:background">@drawable/timer_name_background</item>
 
         <item name="android:editable">true</item>
         <item name="android:focusable">true</item>
