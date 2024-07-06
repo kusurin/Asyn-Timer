@@ -292,6 +292,7 @@ public class TimerUI {
     public void start() {
         if(timer.getState() == States.Reseted){
             timer.switchState();
+            WillChange = true;
         }
     }
 }
