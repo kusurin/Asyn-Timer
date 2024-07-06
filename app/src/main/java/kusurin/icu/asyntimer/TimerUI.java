@@ -288,5 +288,11 @@ public class TimerUI {
         });
         Animator.start();
     }
+
+    public void start() {
+        if(timer.getState() == States.Reseted){
+            timer.switchState();
+        }
+    }
 }
 

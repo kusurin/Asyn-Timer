@@ -16,14 +16,22 @@
         android:layout_height="wrap_content"
         android:background="@color/bar_dark"
         android:minHeight="?attr/actionBarSize"
-        android:paddingEnd="20dp"
+        android:paddingStart="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title=" Zi-O"
+        app:title="Zi-O"
         app:titleTextAppearance="@style/ToolbarTitle"
         app:titleTextColor="@color/font_color_dark"
-        app:logo="@drawable/ic_launcher_foreground" />
+        app:navigationIcon="@drawable/ic_launcher_foreground">
+        <ImageButton
+            android:id="@+id/StartAllButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/button_start"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"

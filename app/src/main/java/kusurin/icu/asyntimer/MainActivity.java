@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
 
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.background_dark, null));
 
         Toolbar = findViewById(R.id.toolbar);
+        ImageButton StartAllButton = findViewById(R.id.StartAllButton);
         setSupportActionBar(Toolbar);
 
         TimerList = findViewById(R.id.TimerList);
@@ -38,6 +41,19 @@ public class MainActivity extends AppCompatActivity {
         Vector<TimerUIState> timerCaches = loadTimerUICaches(this);
 
         Vector<TimerUI> timerUIs = new Vector<>();
+
+        //版权信息
+        Toolbar.setNavigationOnClickListener(v -> {
+            Toast.makeText(MainActivity.this, "© kusurin.icu", Toast.LENGTH_SHORT).show();
+        });
+
+        //Navigation全部开始
+        StartAllButton.setOnClickListener(v -> {
+            for (TimerUI timerUI : timerUIs.subList(0, timerUIs.size() - 1)){
+                timerUI.start();
+            }
+        });
+
 
         for (TimerUIState timerCache : timerCaches) {
             timerUIs.add(new TimerUI(this, timerCache.TimeStart, timerCache.TimeSum, timerCache.timeState, timerCache.TimerNameText, timerCache.TimerIndex, TimerList));
