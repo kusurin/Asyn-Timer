@@ -40,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
         Vector<TimerUI> timerUIs = new Vector<>();
 
         for (TimerUIState timerCache : timerCaches) {
-            timerUIs.add(new TimerUI(this, timerCache.TimeStart, timerCache.TimeSum, timerCache.timeState, timerCache.TimerNameText, timerCache.TimerID, TimerList));
+            timerUIs.add(new TimerUI(this, timerCache.TimeStart, timerCache.TimeSum, timerCache.timeState, timerCache.TimerNameText, timerCache.TimerIndex, TimerList));
+
+            DragSortHelper.setDragSort(TimerList.getChildAt(TimerList.getChildCount()-1), timerUIs);
         }
 
         final boolean[] NeedUpdateCache = {false};
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             if (NeedUpdateCache[0]) {
                                 for (int i = 0; i < timerUIs.size(); i++) {
-                                    timerCaches.set(i, new TimerUIState(timerUIs.get(i).getTimeStart(), timerUIs.get(i).getTimeSum(), timerUIs.get(i).getState(), timerUIs.get(i).getTimerNameText(), timerUIs.get(i).getTimerID()));
+                                    timerCaches.set(i, new TimerUIState(timerUIs.get(i).getTimeStart(), timerUIs.get(i).getTimeSum(), timerUIs.get(i).getState(), timerUIs.get(i).getTimerNameText(), timerUIs.get(i).getTimerIndex()));
 
                                     if(timerUIs.get(i).isDeleted()){
                                         timerUIs.get(i).delete();
@@ -81,13 +83,17 @@ public class MainActivity extends AppCompatActivity {
                             }
                             //假如没有TimerUI，创建一个
                             if (timerUIs.size() == 0) {
-                                timerUIs.add(new TimerUI(MainActivity.this, 0, 0, States.Reseted, "", 0, TimerList));
-                                timerCaches.add(new TimerUIState(0, 0, States.Reseted, "", 0));
+                                timerUIs.add(new TimerUI(MainActivity.this, 0, 0, States.Reseted, "", timerUIs.size(), TimerList));
+                                timerCaches.add(new TimerUIState(0, 0, States.Reseted, "", timerUIs.size()));
+
+                                DragSortHelper.setDragSort(TimerList.getChildAt(TimerList.getChildCount()-1), timerUIs);
                             }
                             //假如最后一个timerUI不在活动状态，创建一个
                             if (timerUIs.lastElement().getState() != States.Reseted || !timerUIs.lastElement().getTimerNameText().equals("")) {
                                 timerUIs.add(new TimerUI(MainActivity.this, 0, 0, States.Reseted, "", timerUIs.size(), TimerList));
                                 timerCaches.add(new TimerUIState(0, 0, States.Reseted, "", timerUIs.size()));
+
+                                DragSortHelper.setDragSort(TimerList.getChildAt(TimerList.getChildCount()-1), timerUIs);
                             }
                         }
                     });
@@ -121,4 +127,3 @@ public class MainActivity extends AppCompatActivity {
         return timerCaches;
     }
 }
-

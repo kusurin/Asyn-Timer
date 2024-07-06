@@ -20,7 +20,7 @@ public class TimerUI {
 
     private Timer timer = null;
 
-    private int TimerID = 0;
+    private int TimerIndex = 0;
     private LinearLayout container = null;
     private RelativeLayout TimerUnit = null;
     private ImageButton buttonSwitch = null;
@@ -39,10 +39,10 @@ public class TimerUI {
 
     private boolean IsDeleted = false;
 
-    TimerUI(Context context, long timeStart, long timeSum, States timeState,String TimerNameText,int TimerID, LinearLayout container){
+    TimerUI(Context context, long timeStart, long timeSum, States timeState, String TimerNameText, int TimerIndex, LinearLayout container){
         this.context = context;
 
-        this.TimerID = TimerID;
+        this.TimerIndex = TimerIndex;
         this.TimerUnit = new RelativeLayout(context,null,0,R.style.TimerUnit);
         this.buttonSwitch = new ImageButton(context,null,0,R.style.TimerSwitch);
         this.buttonReset = new ImageButton(context,null,0,R.style.TimerReset);
@@ -239,6 +239,10 @@ public class TimerUI {
         WillChange = false;
     }
 
+    public void Change() {
+        WillChange = true;
+    }
+
     //timerUI的状态，淦不想写链式
     public boolean WillChange() {
         return WillChange;
@@ -260,8 +264,8 @@ public class TimerUI {
         return timerName.getText().toString();
     }
 
-    public int getTimerID() {
-        return TimerID;
+    public int getTimerIndex() {
+        return TimerIndex;
     }
 
     public boolean isDeleted() {
