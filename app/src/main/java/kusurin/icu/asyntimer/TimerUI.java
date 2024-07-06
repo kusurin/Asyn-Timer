@@ -29,6 +29,10 @@ public class TimerUI {
     private TextView timerTimeSub = null; //加个毫秒位
     private EditText timerName = null;
 
+    //为什么不行？为什么不行？为什么不行？
+    private States buttonSwitchState = null;
+    private States buttonResetState = null;
+
     private States lastState = null;
 
     private boolean WillChange = false;
@@ -165,17 +169,22 @@ public class TimerUI {
         if (lastState != timer.getState()) {
             switch (timer.getState()) {
                 case Running:
+                    buttonSwitchState = States.Stopped;
                     changeButton(buttonSwitch, R.drawable.button_pause);
-                    if(buttonReset.getBackground().getConstantState() != context.getDrawable(R.drawable.button_reset).getConstantState()){
+                    if(buttonResetState != States.Reseted){
+                        buttonResetState = States.Reseted;
                         changeButton(buttonReset, R.drawable.button_reset);
                     }
                     break;
                 case Stopped:
+                    buttonSwitchState = States.Running;
                     changeButton(buttonSwitch, R.drawable.button_start);
                     break;
                 case Reseted:
+                    buttonResetState = States.Stopped;
                     changeButton(buttonReset, R.drawable.button_delete);
-                    if(buttonSwitch.getBackground().getConstantState() != context.getDrawable(R.drawable.button_start).getConstantState()){
+                    if(buttonSwitchState != States.Running){
+                        buttonSwitchState = States.Running;
                         changeButton(buttonSwitch, R.drawable.button_start);
                     }
                     break;
