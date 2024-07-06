@@ -20,9 +20,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Zi-O"
+        app:title=" Zi-O"
         app:titleTextAppearance="@style/ToolbarTitle"
-        app:titleTextColor="@color/font_color_dark" />
+        app:titleTextColor="@color/font_color_dark"
+        app:logo="@drawable/ic_launcher_foreground" />
 
     <ScrollView
         android:layout_width="match_parent"

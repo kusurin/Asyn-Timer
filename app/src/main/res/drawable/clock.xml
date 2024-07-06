@@ -1,0 +1,8 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:tint="#FFFFFF" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
+      
+    <path android:fillColor="@android:color/white" android:pathData="M 11.988 0 C 5.364 0 0 5.376 0 12 s 5.364 12 11.988 12 C 18.624 24 24 18.624 24 12 S 18.624 0 11.988 0 z M 12 21.6 c -5.304 0 -9.6 -4.296 -9.6 -9.6 s 4.296 -9.6 9.6 -9.6 s 9.6 4.296 9.6 9.6 s -4.296 9.6 -9.6 9.6 z"/>
+
+    <!--谁教你这样画的-->
+    <path android:fillColor="@android:color/white" android:pathData="M 12.6 6 A 0.6 0.6 0 0 0 10.8 6 v 7.2 l 6.3 3.78 a 0.6 0.6 0 0 0 0.9 -1.476 l -5.4 -3.204 z"/>
+    
+</vector>
