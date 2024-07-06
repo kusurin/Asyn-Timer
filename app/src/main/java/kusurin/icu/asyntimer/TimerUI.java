@@ -274,12 +274,12 @@ public class TimerUI {
             button.setBackground(context.getDrawable(drawable));
             return;
         }
-        ObjectAnimator Animator = ObjectAnimator.ofFloat(button, "alpha", 1f, 0f).setDuration(80);
+        ObjectAnimator Animator = ObjectAnimator.ofFloat(button, "alpha", 1f, 0.2f).setDuration(80);
         Animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 button.setBackground(context.getDrawable(drawable));
-                ObjectAnimator.ofFloat(button, "alpha", 0f, 1f).setDuration(80).start();
+                ObjectAnimator.ofFloat(button, "alpha", 0.2f, 1f).setDuration(80).start();
             }
         });
         Animator.start();
