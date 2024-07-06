@@ -8,13 +8,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.Vector;
 
@@ -44,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         //版权信息
         Toolbar.setNavigationOnClickListener(v -> {
-            Toast.makeText(MainActivity.this, "© kusurin.icu", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "© kusurin.icu", Toast.LENGTH_SHORT).show();
+            imgToast("© kusurin.icu", R.drawable.kusurin_icu);
         });
 
         //Navigation全部开始
@@ -141,5 +150,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return timerCaches;
+    }
+
+    public void imgToast(String text, int imgResId) {
+        Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+
+        LinearLayout toastView = (LinearLayout) toast.getView();
+        toastView.setOrientation(LinearLayout.HORIZONTAL);
+        toastView.setGravity(Gravity.CENTER_VERTICAL);
+        toastView.setClipToPadding(false);
+
+        ImageView toastImage = new ImageView(this);
+        toastImage.setImageResource(imgResId);
+        LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(this.getResources().getDimensionPixelSize(R.dimen.fontSize_toast), this.getResources().getDimensionPixelSize(R.dimen.fontSize_toast));
+        imgParams.setMargins(getResources().getDimensionPixelSize(R.dimen.marginLeft_toast_icon), 0, 0, getResources().getDimensionPixelSize(R.dimen.marginBottom_toast_icon));
+        toastImage.setLayoutParams(imgParams);
+        toastView.addView(toastImage, -1);
+
+        TextView textView = (TextView) toastView.getChildAt(0);
+        textView.setTextSize(0,getResources().getDimensionPixelSize(R.dimen.fontSize_toast));
+        textView.setLetterSpacing(0.02f);
+
+        toast.show();
     }
 }

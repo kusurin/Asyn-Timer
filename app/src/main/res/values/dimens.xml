@@ -1,6 +1,10 @@
 <resources>
     <dimen name="fontSize_toolbar">40dp</dimen>
 
+    <dimen name="fontSize_toast">25dp</dimen>
+    <dimen name="marginLeft_toast_icon">10dp</dimen>
+    <dimen name="marginBottom_toast_icon">-0.5dp</dimen>
+
     <dimen name="marginTop_timerUnit">0dp</dimen>
     <dimen name="marginRight_timerUnit">10dp</dimen>
     <dimen name="marginBottom_timerUnit">5dp</dimen>
